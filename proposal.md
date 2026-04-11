@@ -2,7 +2,7 @@
 
 
 ## Repository
-<Link to your project's public GitHub respository>
+(https://github.com/makaylahenry06/FinalProject.git)
 
 ## Description
 My final project will consist of a simple drag and click game. I want to make it themed off of my favorite anime Jujutsu Kaisen! This is relevent to media and digital arts because, well, it's a video game! most video games are considered digital arts.
