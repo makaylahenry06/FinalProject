@@ -57,3 +57,17 @@ def jump(self):
 
 def draw(self):
     pygame.draw.rect(screen, RED, self.rect)
+
+class Enemy:
+    def __init__(self, x, y):
+        self.rect = pygame.Rect(x, y, 50, 50)
+        self.speed = random.choice([-3, 3])
+
+    def move(self):
+        self.rect.x += self.speed
+
+        if self.rect.x <= 0 or self.rect.x >= WIDTH - 50:
+            self.speed *= -1
+
+    def draw(self):
+        pygame.draw.rect(screen, BLACK, self.rect)
