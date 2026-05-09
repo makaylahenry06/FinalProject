@@ -71,3 +71,21 @@ class Enemy:
 
     def draw(self):
         pygame.draw.rect(screen, BLACK, self.rect)
+
+
+class Boss:
+    def __init__(self):
+        self.rect = pygame.Rect(750, 300, 140, 140)
+        self.health = 300
+        self.angle = 0
+
+    def move(self):
+        self.angle += 0.03
+        self.rect.y = 250 + int(math.sin(self.angle) * 100)
+
+    def attack(self, player):
+        if self.rect.colliderect(player.rect):
+            player.health -= 1
+
+    def draw(self):
+        pygame.draw.rect(screen, PURPLE, self.rect)
