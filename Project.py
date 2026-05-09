@@ -49,3 +49,11 @@ def gravity(self):
         self.rect.y = 450
         self.vel_y = 0
         self.on_ground = True
+
+def jump(self):
+    if self.on_ground:
+        self.vel_y = self.jump_power
+        self.on_ground = False
+
+def draw(self):
+    pygame.draw.rect(screen, RED, self.rect)
