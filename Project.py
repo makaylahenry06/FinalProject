@@ -8,7 +8,7 @@ WIDTH, HEIGHT = 1000, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Gojo Vs Sukuna!")
 
-clock = pygame.time.clock()
+clock = pygame.time.Clock()
 
 WHITE = (255, 255, 255)
 BLUE = (100, 149, 237)
@@ -21,13 +21,15 @@ PURPLE = (128, 0, 128)
 font = pygame.font.SysFont("Arial", 28)
 
 class Player:
-    self.rect = pygame.Rect(100, 450, 50, 70)
-    self.vel_y = 0
-    self.speed = 6
-    self.jump_power = -16
-    self.on_ground = False
-    self.health = 100
-    self.dragging = False
+    def __init__(self):
+        self.rect = pygame.Rect(100, 450, 50, 70)
+        self.vel_y = 0
+        self.speed = 6
+        self.jump_power = -16
+        self.on_ground = False
+        self.health = 100
+        self.dragging = False
+
 
 def move(self, keys):
     dx = 0
