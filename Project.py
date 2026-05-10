@@ -119,3 +119,27 @@ def handle_events(player):
 
 def update_game(player, enemies, boss):
     keys = pygame.key.get_pressed()
+
+    player.move(keys)
+    player.gravity()
+
+    for enemy in enemies:
+        enemy.move()
+
+        if player.rect.colliderect(enemy.rect):
+            player.health -= 0.2
+
+    boss.move()
+    boss.attack(player)
+
+    mouse_pressed = pygame.mouse.get_pressed()
+
+    if mouse_pressed[0]:
+        mouse_pos = pygame.mouse.get_pos()
+
+        if boss.rect.collidepoint(mouse_pos):
+            boss.health -= 1
+
+
+def draw_game(player, enemies, boss):
+    screen.fill(BLUE)
