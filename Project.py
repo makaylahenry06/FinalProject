@@ -30,6 +30,8 @@ class Player:
         self.health = 100
         self.dragging = False
 
+        self.bullets = []
+
     def move(self, keys):
         dx = 0
 
@@ -54,15 +56,19 @@ class Player:
         self.vel_y = self.jump_power
         self.on_ground = False
 
+    def shoot(self):
+        bullet = pygame.Rect(
+            self.rect.x + 50,
+            self.rect.y + 25,
+            15,
+            5
+        )
+        self.bullets.append(bullet)
+
     def draw(self):
-     pygame.draw.rect(screen, RED, self.rect)
-
-   
-       
-    
-
-
-
+     pygame.draw.rect(screen, PURPLE, self.rect)
+     for bullet in self.bullets:
+         pygame.draw.rect(screen, WHITE, bullet)
 
 
 class Enemy:
@@ -70,11 +76,13 @@ class Enemy:
         self.rect = pygame.Rect(x, y, 50, 50)
         self.speed = random.choice([-3, 3])
 
-    def move(self):
-        self.rect.x += self.speed
+    def move(self, player):
+        if self.rect.x < player.rect.x:
+            self.rect.x += 2
 
-        if self.rect.x <= 0 or self.rect.x >= WIDTH - 50:
-            self.speed *= -1
+        if self.rect.x > player.rect.x:
+            self.rect.x -= 2
+       
 
     def draw(self):
         pygame.draw.rect(screen, BLACK, self.rect)
@@ -95,7 +103,7 @@ class Boss:
             player.health -= 1
 
     def draw(self):
-        pygame.draw.rect(screen, PURPLE, self.rect)
+        pygame.draw.rect(screen, RED, self.rect)
 
         pygame.draw.rect(screen, RED, (650, 40, 300, 25))
         pygame.draw.rect(screen, GREEN, (650, 40, self.health, 25))
@@ -110,6 +118,9 @@ def handle_events(player):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 player.jump()
+
+            if event.key == pygame.K_f:
+             player.shoot()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if player.rect.collidepoint(event.pos):
@@ -130,11 +141,23 @@ def update_game(player, enemies, boss):
     player.move(keys)
     player.gravity()
 
+    for bullet in player.bullets:
+        bullet.x += 10
+
     for enemy in enemies:
-        enemy.move()
+        enemy.move(player)
 
         if player.rect.colliderect(enemy.rect):
             player.health -= 0.2
+
+        for bullet in player.bullets:
+            if bullet.colliderect(enemy.rect):
+                enemies.remove(enemy)
+
+                if bullet in player.bullets:
+                    player.bullets.remove(bullet)
+
+                break
 
     boss.move()
     boss.attack(player)
@@ -146,6 +169,13 @@ def update_game(player, enemies, boss):
 
         if boss.rect.collidepoint(mouse_pos):
             boss.health -= 1
+
+        for bullet in player.bullets:
+            if bullet.colliderect(boss.rect):
+                boss.health -= 5
+
+                if bullet in player.bullets:
+                    player.bullets.remove(bullet)
 
 
 def draw_game(player, enemies, boss):
@@ -163,7 +193,7 @@ def draw_game(player, enemies, boss):
     screen.blit(hp_text, (20, 20))
 
     info = font.render(
-        "Arrow Keys = Move / SPACE = Jump / Drag Character / Click Sukuna to Attack",
+        "Arrow Keys = Move / SPACE = Jump and Drag Character /  F Key = Attack",
         True,
         YELLOW
     )
