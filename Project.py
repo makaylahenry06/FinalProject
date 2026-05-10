@@ -150,7 +150,7 @@ def update_game(player, enemies, boss):
         if player.rect.colliderect(enemy.rect):
             player.health -= 0.2
 
-        for bullet in player.bullets:
+        for bullet in player.bullets[:]:
             if bullet.colliderect(enemy.rect):
                 enemies.remove(enemy)
 
@@ -162,20 +162,12 @@ def update_game(player, enemies, boss):
     boss.move()
     boss.attack(player)
 
-    mouse_pressed = pygame.mouse.get_pressed()
+    for bullet in player.bullets[:]:
+     if bullet.colliderect(boss.rect):
+        boss.health -= 20
+        player.bullets.remove(bullet)
 
-    if mouse_pressed[0]:
-        mouse_pos = pygame.mouse.get_pos()
-
-        if boss.rect.collidepoint(mouse_pos):
-            boss.health -= 1
-
-        for bullet in player.bullets:
-            if bullet.colliderect(boss.rect):
-                boss.health -= 5
-
-                if bullet in player.bullets:
-                    player.bullets.remove(bullet)
+   
 
 
 def draw_game(player, enemies, boss):
