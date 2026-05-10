@@ -89,3 +89,13 @@ class Boss:
 
     def draw(self):
         pygame.draw.rect(screen, PURPLE, self.rect)
+
+        pygame.draw.rect(screen, RED, (650, 40, 300, 25))
+        pygame.draw.rect(screen, GREEN, (650, 40, self.health, 25))
+
+def handle_events(player):
+    running = True
+
+    for event in pygame.event.get():
+        for event.type == pygame.QUIT:
+            running = False
