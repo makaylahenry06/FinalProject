@@ -97,5 +97,23 @@ def handle_events(player):
     running = True
 
     for event in pygame.event.get():
-        for event.type == pygame.QUIT:
+        if event.type == pygame.QUIT:
             running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                player.jump()
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if player.rect.collidepoint(event.pos):
+                player.dragging = True
+
+        if event.type == pygame.MOUSEBUTTONUP:
+            player.dragging = False
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if player.dragging:
+                player.rect.center = event.pos
+
+    return running
+            
