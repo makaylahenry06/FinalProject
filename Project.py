@@ -29,34 +29,40 @@ class Player:
         self.on_ground = False
         self.health = 100
         self.dragging = False
+    def move(self, keys):
+        dx = 0
 
+        if keys[pygame.K_LEFT]:
+            dx = -self.speed
 
-def move(self, keys):
-    dx = 0
+        if keys[pygame.K_RIGHT]:
+            dx = self.speed
 
-    if keys[pygame.K_LEFT]:
-        dx = self.speed
-    if keys[pygame.K_RIGHT]:
-        dx = self.speed
+        self.rect.x += dx
+    def gravity(self):
+        self.vel_y += 1
+        self.rect.y += self.vel_y
 
-    self.rect.x += dx
+        if self.rect.y >= 450:
+         self.rect.y = 450
+         self.vel_y = 0
+         self.on_ground = True
 
-def gravity(self):
-    self.vel_y += 1
-    self.rect.y += self.vel_y
-
-    if self.rect.y >= 450:
-        self.rect.y = 450
-        self.vel_y = 0
-        self.on_ground = True
-
-def jump(self):
-    if self.on_ground:
+    def jump(self):
+     if self.on_ground:
         self.vel_y = self.jump_power
         self.on_ground = False
 
 def draw(self):
     pygame.draw.rect(screen, RED, self.rect)
+
+   
+       
+    
+
+
+
+
 
 class Enemy:
     def __init__(self, x, y):
@@ -143,3 +149,61 @@ def update_game(player, enemies, boss):
 
 def draw_game(player, enemies, boss):
     screen.fill(BLUE)
+
+    pygame.draw.rect(screen, GREEN, (0, 520, WIDTH, 80))
+    player.draw()
+
+    for enemy in enemies:
+        enemy.draw()
+
+    boss.draw()
+
+    hp_text = font.render(f"Gojo HP: {int(player.health)}", True, WHITE)
+    screen.blit(hp_text, (20, 20))
+
+    info = font.render(
+        "Arrow Keys = Move / SPACE = Jump / Drag Character / Click Sukuna to Attack",
+        True,
+        YELLOW
+    )
+    screen.blit(info, (20, 500))
+
+    pygame.display.update()
+
+def main():
+    player = Player()
+
+    enemies = [
+        Enemy(300, 470),
+        Enemy(500, 470),
+        Enemy(650, 470)
+    ]
+
+    boss = Boss()
+
+    running = True
+    while running:
+        clock.tick(60)
+        running = handle_events(player)
+        update_game(player, enemies, boss)
+        draw_game(player, enemies, boss)
+
+        if boss.health <= 0:
+            screen.fill(BLACK)
+
+            win_text = font.render(
+                "GOJO WINS!",
+                True,
+                YELLOW
+            )
+            
+            screen.blit(win_text, (300, 280))
+            pygame.display.update()
+            pygame.time.delay(4000)
+
+            running = False
+
+    pygame.quit()       
+
+if __name__ == "__main__":
+    main()
