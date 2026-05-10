@@ -29,6 +29,7 @@ class Player:
         self.on_ground = False
         self.health = 100
         self.dragging = False
+
     def move(self, keys):
         dx = 0
 
@@ -53,8 +54,8 @@ class Player:
         self.vel_y = self.jump_power
         self.on_ground = False
 
-def draw(self):
-    pygame.draw.rect(screen, RED, self.rect)
+    def draw(self):
+     pygame.draw.rect(screen, RED, self.rect)
 
    
        
@@ -117,7 +118,7 @@ def handle_events(player):
         if event.type == pygame.MOUSEBUTTONUP:
             player.dragging = False
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.type == pygame.MOUSEMOTION:
             if player.dragging:
                 player.rect.center = event.pos
 
