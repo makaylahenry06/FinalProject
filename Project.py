@@ -116,4 +116,6 @@ def handle_events(player):
                 player.rect.center = event.pos
 
     return running
-            
+
+def update_game(player, enemies, boss):
+    keys = pygame.key.get_pressed()
