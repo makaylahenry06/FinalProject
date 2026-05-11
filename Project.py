@@ -20,11 +20,14 @@ PURPLE = (128, 0, 128)
 
 font = pygame.font.SysFont("Arial", 28)
 gojo_img = pygame.image.load("Gojo.JPG")
-gojo_img = pygame.transform.scale(gojo_img, (50, 70))
+gojo_img = pygame.transform.scale(gojo_img, (80, 100))
+sukuna_img = pygame.image.load("Sukuna.JPG")
+sukuna_img = pygame.transform.scale(sukuna_img, (140, 140))
+
 
 class Player:
     def __init__(self):
-        self.rect = pygame.Rect(100, 450, 50, 70)
+        self.rect = pygame.Rect(100, 450, 80, 100)
         self.vel_y = 0
         self.speed = 6
         self.jump_power = -16
@@ -105,7 +108,7 @@ class Boss:
             player.health -= 1
 
     def draw(self):
-        pygame.draw.rect(screen, RED, self.rect)
+        pygame.draw.rect(sukuna_img, self.rect)
 
         pygame.draw.rect(screen, RED, (650, 40, 300, 25))
         pygame.draw.rect(screen, GREEN, (650, 40, self.health, 25))
