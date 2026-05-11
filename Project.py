@@ -23,6 +23,8 @@ gojo_img = pygame.image.load("Gojo.JPG")
 gojo_img = pygame.transform.scale(gojo_img, (80, 100))
 sukuna_img = pygame.image.load("Sukuna.JPG")
 sukuna_img = pygame.transform.scale(sukuna_img, (140, 140))
+kenjaku_img = pygame.image.load("Kenjaku.JPG")
+kenjaku_img = pygame.transform.scale(kenjaku_img, (70, 70))
 
 
 class Player:
@@ -90,7 +92,7 @@ class Enemy:
        
 
     def draw(self):
-        pygame.draw.rect(screen, BLACK, self.rect)
+       screen.blit(sukuna_img, self.rect)
 
 
 class Boss:
@@ -108,7 +110,7 @@ class Boss:
             player.health -= 1
 
     def draw(self):
-        pygame.draw.rect(sukuna_img, self.rect)
+        screen.blit(sukuna_img, self.rect)
 
         pygame.draw.rect(screen, RED, (650, 40, 300, 25))
         pygame.draw.rect(screen, GREEN, (650, 40, self.health, 25))
