@@ -19,6 +19,8 @@ YELLOW = (255, 255, 0)
 PURPLE = (128, 0, 128)
 
 font = pygame.font.SysFont("Arial", 28)
+gojo_img = pygame.image.load("Gojo.JPG")
+gojo_img = pygame.transform.scale(gojo_img, (50, 70))
 
 class Player:
     def __init__(self):
@@ -66,7 +68,7 @@ class Player:
         self.bullets.append(bullet)
 
     def draw(self):
-     pygame.draw.rect(screen, PURPLE, self.rect)
+     screen.blit(gojo_img, self.rect)
      for bullet in self.bullets:
          pygame.draw.rect(screen, WHITE, bullet)
 
