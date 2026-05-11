@@ -75,7 +75,7 @@ class Player:
     def draw(self):
      screen.blit(gojo_img, self.rect)
      for bullet in self.bullets:
-         pygame.draw.rect(screen, WHITE, bullet)
+         pygame.draw.rect(screen, PURPLE, bullet)
 
 
 class Enemy:
@@ -92,7 +92,7 @@ class Enemy:
        
 
     def draw(self):
-       screen.blit(sukuna_img, self.rect)
+       screen.blit(kenjaku_img, self.rect)
 
 
 class Boss:
@@ -224,10 +224,11 @@ def main():
             win_text = font.render(
                 "GOJO WINS!",
                 True,
-                YELLOW
+                WHITE
             )
             
-            screen.blit(win_text, (300, 280))
+            text_rect = win_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
+            screen.blit(win_text, text_rect)
             pygame.display.update()
             pygame.time.delay(4000)
 
